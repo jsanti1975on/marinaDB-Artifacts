@@ -1,3 +1,4 @@
+![combined-image](https://github.com/user-attachments/assets/7684e497-54df-43ca-b54b-6f517ec8764c)
 ### Artifacts
 
 The **Artifacts** section of the **marinaDB** repository provides a comprehensive collection of project resources, including:
