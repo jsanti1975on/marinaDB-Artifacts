@@ -10,3 +10,6 @@ The **Artifacts** section of the **marinaDB** repository provides a comprehensiv
 - **Error Handling**: Information on built-in error handling procedures, showcasing how the application addresses exceptions and ensures a stable, user-friendly experience.
 
 This section serves as a resource for viewers, offering a deeper understanding of the application’s design, troubleshooting approaches, and interaction flow. Artifacts will be updated periodically as the project grows and new features or improvements are added. 
+![2024-11-15 13_12_18-DALL·E 2024-11-15 13 11 08 - A cartoon character resembling Clippy, the papercli](https://github.com/user-attachments/assets/055b4b4e-711c-412a-8d63-266805174594)
+![2024-11-15 13_13_31-DALL·E 2024-11-14 19 14 12 - A cartoon character resembling Clippy, the papercli](https://github.com/user-attachments/assets/839559f7-3f8e-415a-809a-c6463d91ca5d)
+![2024-11-15 13_14_51-Illustration Creator - AI picture generator   Art - Image with Hands Request](https://github.com/user-attachments/assets/055558ab-ad6b-4004-a271-abf267999d3c)
