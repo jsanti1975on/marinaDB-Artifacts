@@ -13,5 +13,5 @@ Sub CopyDataToBackend()
     ' Copy the values from Sheet1 to Backend
     targetSheet.Range("A1:B81").Value = copyRange.Value
     
-    MsgBox "Data copied successfully from Sheet1 to Backend.", vbInformation
+    MsgBox "Data copied cont.", vbInformation
 End Sub
