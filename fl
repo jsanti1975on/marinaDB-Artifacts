@@ -1,0 +1,90 @@
+Private Sub cmdSearchByFLNumber_Click()
+    Dim ws As Worksheet
+    Dim flNumber As String
+    Dim foundRow As Range
+    Dim searchValue As String
+    Dim searchRange As Range
+    Dim MaxChars As Integer
+    Dim msgValue As VbMsgBoxResult
+    Dim imgPath As String
+
+    ' Set the maximum allowed characters for FL Number
+    MaxChars = 12 ' Adjust the character limit as needed
+
+    ' Call the txtFLNumber_Change validation (or enforce validation here)
+    Call txtFLNumber_Change
+
+    ' Get the FL Number from the text box (txtFLNumber)
+    flNumber = Me.txtFLNumber.Value
+
+    ' Validate if the FL Number is too long (again, just to be safe)
+    If Len(flNumber) > MaxChars Then
+        MsgBox "The FL Number cannot exceed " & MaxChars & " characters.", vbExclamation, "Character Limit Exceeded"
+        Exit Sub ' Exit if too long
+    End If
+
+    ' Set worksheet object
+    Set ws = ThisWorkbook.Sheets("Sheet1")
+
+    ' Extract the first 3-4 characters of the FL Number for search purposes (depending on your needs)
+    searchValue = Left(flNumber, 4)
+    
+    ' Validate that the searchValue is not an empty string
+    If searchValue = "" Then
+        MsgBox "Please enter at least four characters in the FL Number.", vbExclamation, "Invalid Input"
+        Exit Sub
+    End If
+    
+    ' Define the search range in Column E (from row 2 to row 81)
+    Set searchRange = ws.Range("E2:E81")
+
+    ' Search for the FL Number in the defined range (E2:E81)
+    Set foundRow = searchRange.Find(What:=searchValue, LookIn:=xlValues, LookAt:=xlPart)
+
+    ' If FL Number is found, populate the form fields with corresponding data
+    If Not foundRow Is Nothing Then
+        ' Populate the corresponding data from the found row
+        TextBox1.Value = ws.Cells(foundRow.Row, "A").Value  ' Name (Column A)
+        TextBox2.Value = ws.Cells(foundRow.Row, "B").Value  ' Slip Number (Column B)
+        TextBox3.Value = ws.Cells(foundRow.Row, "C").Value  ' Tenant ID (Column C)
+        txtFLNumber.Value = ws.Cells(foundRow.Row, "E").Value ' FL Number (Column E)
+        txtPhone0.Value = ws.Cells(foundRow.Row, "F").Value ' Phone 0 (Column F)
+        txtPhone1.Value = ws.Cells(foundRow.Row, "G").Value ' Phone 1 (Column G)
+        txtEmail0.Value = ws.Cells(foundRow.Row, "H").Value ' Email (Column H)
+        
+        ' Display image associated with the FL Number (if available)
+        imgPath = "F:\IDs\" & TextBox3.Value & ".jpg"
+        If Dir(imgPath) <> "" Then
+            Image1.Picture = LoadPicture(imgPath)
+        Else
+            Image1.Picture = LoadPicture("") ' Clear image if not found
+        End If
+        
+        ' Ask the user if this is the correct tenant
+        msgValue = MsgBox("Is this the tenant for FL Number: " & txtFLNumber.Value & "?" & vbCrLf & _
+                          "Name: " & TextBox1.Value & vbCrLf & _
+                          "Slip Number: " & TextBox2.Value, _
+                          vbYesNo + vbQuestion, "Confirm Tenant")
+
+        ' If the user selects No, clear the form
+        If msgValue = vbNo Then
+            ClearForm
+            MsgBox "Please try another search.", vbExclamation, "No Match Found"
+        End If
+    Else
+        ' Notify user if FL Number is not found
+        MsgBox "FL Number not found. Please try again.", vbExclamation, "Not Found"
+    End If
+End Sub
+
+' Subroutine to clear the entire form, including the image
+Private Sub ClearForm()
+    TextBox1.Value = ""
+    TextBox2.Value = ""
+    TextBox3.Value = ""
+    txtFLNumber.Value = ""
+    txtPhone0.Value = ""
+    txtPhone1.Value = ""
+    txtEmail0.Value = ""
+    Image1.Picture = LoadPicture("") ' Clear image
+End Sub
